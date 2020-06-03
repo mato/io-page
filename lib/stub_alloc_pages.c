@@ -15,11 +15,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifdef __MINIOS__
-#include <mini-os/os.h>
-#include <mini-os/console.h>
-#include <mini-os/xmalloc.h>
-#else
 #define _GNU_SOURCE
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -29,7 +24,6 @@
 #include <stdio.h>
 #define PAGE_SIZE 4096
 #define printk printf
-#endif
 #ifdef _WIN32
 #include <malloc.h>
 #endif
@@ -54,10 +48,7 @@ mirage_alloc_pages(value did_gc, value n_pages)
   /* If the allocation fails, return None. The ocaml layer will
      be able to trigger a full GC which just might run finalizers
      of unused bigarrays which will free some memory. */
-#ifdef __MINIOS__
-  void* block = _xmalloc(len, PAGE_SIZE);
-  if (block == NULL) {
-#elif _WIN32
+#ifdef _WIN32
   /* NB we can't use _aligned_malloc because we can't get OCaml to
      finalize with _aligned_free. Regular free() will not work. */
   static int printed_warning = 0;

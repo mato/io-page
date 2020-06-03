@@ -11,7 +11,7 @@ depends: [
   "dune"
   "io-page" {=version}
   "cstruct" {>= "2.0.0"}
-  "mirage-xen-ocaml"
+  "ocaml-freestanding" {>= "0.6.1"}
 ]
 build: [
   ["env" "OPAM_PKG_CONFIG_PATH=%{prefix}%/lib/pkgconfig" "dune" "subst"] {pinned}

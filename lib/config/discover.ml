@@ -14,7 +14,7 @@ let () =
       match C.Pkg_config.get c with
       | None -> default
       | Some pc -> begin
-         match C.Pkg_config.query pc ~package:"mirage-xen-ocaml" with
+         match C.Pkg_config.query pc ~package:"ocaml-freestanding" with
          | None -> default
          | Some v -> v
       end in
